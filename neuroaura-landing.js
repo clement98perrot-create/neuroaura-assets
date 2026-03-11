@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded',function(){
+(function(){
+function init(){
 document.body.innerHTML=`<div id="cur"></div>
 <div id="curR"></div>
 <nav id="nav">
@@ -486,4 +487,10 @@ anim();
 })();
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-});
+}
+if(document.readyState==='loading'){
+document.addEventListener('DOMContentLoaded',init);
+}else{
+init();
+}
+})();

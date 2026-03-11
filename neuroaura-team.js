@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded',function(){
+(function(){
+function init(){
 document.body.innerHTML=`<div id="cur"></div><div id="curR"></div>
 <nav>
 <a href="/neuroaura-landing" class="logo">Neuro<em>Aura</em></a>
@@ -178,4 +179,10 @@ document.querySelectorAll('.aura-c').forEach(canvas=>{const ctx=canvas.getContex
 (function(){const c=document.getElementById('radarC');if(!c)return;const ctx=c.getContext('2d'),W=c.width,H=c.height,cx=W/2,cy=H/2,maxR=180;const labels=['Alpha\n(Calme)','Thêta\n(Créativité)','Bêta\n(Focus)','Activation\n(Gamma)','Repos\n(Delta)'];const N=labels.length;const datasets=[{v:[0.42,0.50,0.60,0.48,0.20],color:'#00e5ff',lw:2},{v:[0.38,0.40,0.42,0.35,0.38],color:'rgba(255,255,255,.3)',lw:1.5},{v:[0.55,0.50,0.72,0.68,0.30],color:'#ff9500',lw:1.5}];function gp(i,r){const a=i*(2*Math.PI/N)-Math.PI/2;return{x:cx+r*Math.cos(a),y:cy+r*Math.sin(a)};}ctx.clearRect(0,0,W,H);[.2,.4,.6,.8,1].forEach(f=>{ctx.beginPath();for(let i=0;i<N;i++){const p=gp(i,f*maxR);i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y);}ctx.closePath();ctx.strokeStyle='rgba(255,255,255,.06)';ctx.lineWidth=1;ctx.stroke();});for(let i=0;i<N;i++){const p=gp(i,maxR);ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(p.x,p.y);ctx.strokeStyle='rgba(255,255,255,.08)';ctx.lineWidth=1;ctx.stroke();const lp=gp(i,maxR+30);const lines=labels[i].split('\n');ctx.font='300 11px DM Mono';ctx.fillStyle='rgba(240,238,255,.5)';ctx.textAlign='center';ctx.textBaseline='middle';lines.forEach((line,li)=>ctx.fillText(line,lp.x,lp.y+(li-.5*(lines.length-1))*14));}datasets.forEach((ds,di)=>{ctx.beginPath();ds.v.forEach((v,i)=>{const p=gp(i,v*maxR);i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y);});ctx.closePath();ctx.strokeStyle=ds.color;ctx.lineWidth=ds.lw;if(di===0){ctx.shadowBlur=10;ctx.shadowColor=ds.color;}ctx.stroke();ctx.shadowBlur=0;if(di===0){ctx.fillStyle='rgba(0,229,255,.07)';ctx.fill();}ds.v.forEach((v,i)=>{const p=gp(i,v*maxR);ctx.beginPath();ctx.arc(p.x,p.y,di===0?4:2.5,0,Math.PI*2);ctx.fillStyle=ds.color;ctx.fill();});});})();
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-});
+}
+if(document.readyState==='loading'){
+document.addEventListener('DOMContentLoaded',init);
+}else{
+init();
+}
+})();
