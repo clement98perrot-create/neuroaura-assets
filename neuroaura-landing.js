@@ -294,7 +294,6 @@ Ton cerveau,<br>
 <div class="footer-copy">© 2025 CellandArt / NeuroAura</div>
 </div>
 </footer>`;
-});
 const cur=document.getElementById('cur'),curR=document.getElementById('curR');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
@@ -487,3 +486,4 @@ anim();
 })();
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+});
